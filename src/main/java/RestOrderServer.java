@@ -27,7 +27,7 @@ public class RestOrderServer {
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/orders", new OrderHandler());
-        server.setExecutor(null); // default executor
+        server.setExecutor(null);
         server.start();
         System.out.println("REST Order server started on http://localhost:8080");
         System.out.println("Send POST /orders with JSON body like:");
