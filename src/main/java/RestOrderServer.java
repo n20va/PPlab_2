@@ -50,17 +50,14 @@ public class RestOrderServer {
             System.out.println("Incoming HTTP body: " + body);
 
             try {
-                // парсим JSON в Order
                 Order order = mapper.readValue(body, Order.class);
-
-                // сериализуем обратно (на случай, если в теле были лишние поля)
                 String value = mapper.writeValueAsString(order);
                 String key = String.valueOf(order.orderId);
 
                 ProducerRecord<String, String> record =
                         new ProducerRecord<>("orders", key, value);
 
-                producer.send(record); // асинхронно, нам не обязательно ждать get()
+                producer.send(record);
 
                 String resp = "Order accepted: " + value;
                 byte[] bytes = resp.getBytes(StandardCharsets.UTF_8);
